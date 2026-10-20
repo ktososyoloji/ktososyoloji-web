@@ -39,7 +39,7 @@ export default function Footer() {
           {/* Sağ: Sosyal Medya & İletişim Yer Tutucuları */}
           <div className="flex items-center gap-4">
             <a
-              href="https://instagram.com"
+              href="https://www.instagram.com/ktokarataysosyolojitoplulugu/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram sayfamız"
@@ -48,7 +48,7 @@ export default function Footer() {
               <InstagramIcon className="w-5 h-5" />
             </a>
             <a
-              href="mailto:iletisim@ktosoyoloji.com"
+              href="mailto:sosyolojitoplulugu@karatay.edu.tr"
               aria-label="E-posta gönder"
               className="p-2 rounded hover:text-s-yellow transition-colors"
             >

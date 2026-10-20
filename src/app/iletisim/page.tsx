@@ -31,24 +31,6 @@ function InstagramIcon({ className = 'w-5 h-5' }: { className?: string }) {
   );
 }
 
-function LinkedInIcon({ className = 'w-5 h-5' }: { className?: string }) {
-  return (
-    <svg
-      className={className}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect width="4" height="12" x="2" y="9" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -119,10 +101,10 @@ export default function ContactPage() {
                       E-Posta Adresi
                     </span>
                     <a
-                      href="mailto:sosyoloji@karatay.edu.tr"
+                      href="mailto:sosyolojitoplulugu@karatay.edu.tr"
                       className="text-xs sm:text-sm font-bold text-s-navy hover:text-s-blue underline"
                     >
-                      sosyoloji@karatay.edu.tr
+                      sosyolojitoplulugu@karatay.edu.tr
                     </a>
                   </div>
                 </div>
@@ -166,7 +148,7 @@ export default function ContactPage() {
 
               <div className="space-y-2.5">
                 <a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/ktokarataysosyolojitoplulugu/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 bg-white hover:bg-s-pink hover:text-white text-s-navy font-bold text-xs border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center justify-between"
@@ -178,21 +160,10 @@ export default function ContactPage() {
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
 
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 bg-white hover:bg-s-blue hover:text-white text-s-navy font-bold text-xs border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center justify-between"
-                >
-                  <span className="flex items-center gap-2.5">
-                    <LinkedInIcon className="w-4 h-4" />
-                    <span>LinkedIn Topluluk Sayfası</span>
-                  </span>
-                  <ExternalLink className="w-3.5 h-3.5" />
-                </a>
+
 
                 <a
-                  href="https://chat.whatsapp.com/"
+                  href="https://chat.whatsapp.com/Khno8BGGJqS4Gdw5WwMiwT?s=cl&p=a&mlu=4&ilr=4&iam=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 bg-white hover:bg-emerald-400 text-s-navy font-bold text-xs border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center justify-between"

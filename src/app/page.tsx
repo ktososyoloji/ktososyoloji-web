@@ -107,26 +107,26 @@ export default async function HomePage() {
   // HeroSlider için veri hazırlığı
   const sliderEvent = primaryEvent
     ? {
-        id: primaryEvent.id,
-        title: primaryEvent.title,
-        description: primaryEvent.description,
-        date: primaryEvent.date,
-        location: primaryEvent.location,
-        imageUrl: primaryEvent.imageUrl,
-        formUrl: primaryEvent.formUrl,
-      }
+      id: primaryEvent.id,
+      title: primaryEvent.title,
+      description: primaryEvent.description,
+      date: primaryEvent.date,
+      location: primaryEvent.location,
+      imageUrl: primaryEvent.imageUrl,
+      formUrl: primaryEvent.formUrl,
+    }
     : null;
 
   const sliderContent = featuredContent
     ? {
-        id: featuredContent.id,
-        title: featuredContent.title,
-        summary: featuredContent.summary,
-        type: featuredContent.type,
-        author: featuredContent.author,
-        imageUrl: featuredContent.imageUrl,
-        slug: slugify(featuredContent.title),
-      }
+      id: featuredContent.id,
+      title: featuredContent.title,
+      summary: featuredContent.summary,
+      type: featuredContent.type,
+      author: featuredContent.author,
+      imageUrl: featuredContent.imageUrl,
+      slug: slugify(featuredContent.title),
+    }
     : null;
 
   return (
@@ -529,7 +529,7 @@ export default async function HomePage() {
             {/* Sağ Alan: 3 Neo-Brutal Buton */}
             <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 shrink-0">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/ktokarataysosyolojitoplulugu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-2.5 px-4 bg-white hover:bg-s-pink hover:text-white text-s-navy font-bold text-xs sm:text-sm border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-2"
@@ -539,7 +539,7 @@ export default async function HomePage() {
               </a>
 
               <a
-                href="https://chat.whatsapp.com/"
+                href="https://chat.whatsapp.com/Khno8BGGJqS4Gdw5WwMiwT?s=cl&p=a&mlu=4&ilr=4&iam=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-2.5 px-4 bg-white hover:bg-emerald-400 text-s-navy font-bold text-xs sm:text-sm border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-2"
@@ -549,7 +549,7 @@ export default async function HomePage() {
               </a>
 
               <a
-                href="mailto:sosyoloji@karatay.edu.tr"
+                href="mailto:sosyolojitoplulugu@karatay.edu.tr"
                 className="py-2.5 px-4 bg-white hover:bg-s-yellow text-s-navy font-bold text-xs sm:text-sm border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-2"
               >
                 <Mail className="w-4 h-4" />

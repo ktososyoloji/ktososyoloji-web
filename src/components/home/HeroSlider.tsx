@@ -113,7 +113,7 @@ export default function HeroSlider({ latestEvent, featuredContent }: HeroSliderP
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
               </Link>
               <a
-                href="https://chat.whatsapp.com/"
+                href="https://chat.whatsapp.com/Khno8BGGJqS4Gdw5WwMiwT?s=cl&p=a&mlu=4&ilr=4&iam=0"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 sm:px-8 py-2.5 sm:py-3.5 bg-s-yellow text-s-navy hover:bg-white font-black text-xs sm:text-sm border-2 border-s-navy shadow-[3px_3px_0px_#11375C] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all inline-flex items-center gap-2"
@@ -279,8 +279,8 @@ export default function HeroSlider({ latestEvent, featuredContent }: HeroSliderP
               onClick={() => setCurrentSlide(index)}
               aria-label={`Slayt ${index + 1}`}
               className={`h-3 sm:h-3.5 transition-all border-2 border-s-navy cursor-pointer ${currentSlide === index
-                  ? 'w-8 sm:w-14 bg-s-navy shadow-[2px_2px_0px_#FB7996]'
-                  : 'w-3 sm:w-4 bg-white hover:bg-s-yellow'
+                ? 'w-8 sm:w-14 bg-s-navy shadow-[2px_2px_0px_#FB7996]'
+                : 'w-3 sm:w-4 bg-white hover:bg-s-yellow'
                 }`}
             />
           ))}
