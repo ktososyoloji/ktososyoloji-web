@@ -5,6 +5,7 @@ import {
   Users,
   PenTool,
   ArrowRight,
+  Inbox,
 } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "@/lib/auth";
@@ -50,6 +51,14 @@ const DASHBOARD_MODULES: DashboardModule[] = [
     icon: BookOpen,
     href: "/admin/dictionary",
     badgeColor: "bg-s-pink",
+  },
+  {
+    title: "Gelen Mesajlar",
+    description:
+      "İletişim formundan iletilen soruları, önerileri ve başvuruları inceleyin.",
+    icon: Inbox,
+    href: "/admin/messages",
+    badgeColor: "bg-amber-300",
   },
   {
     title: "Ekip / Kullanıcılar",
