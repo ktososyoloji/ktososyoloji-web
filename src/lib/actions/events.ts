@@ -76,12 +76,59 @@ export async function createEvent(formData: FormData): Promise<void> {
     },
   });
 
-  revalidatePath('/admin/events');
   revalidatePath('/');
+  revalidatePath('/etkinlikler');
+  revalidatePath('/admin/events');
 }
 
 // ─────────────────────────────────────────────
-// 3. Etkinlik Silme
+// 3. Etkinlik Güncelleme
+// ─────────────────────────────────────────────
+export async function updateEvent(id: string, formData: FormData): Promise<void> {
+  if (!id) {
+    throw new Error("Güncellenecek etkinliğin ID'si belirtilmedi.");
+  }
+
+  const title       = formData.get('title') as string | null;
+  const description = formData.get('description') as string | null;
+  const dateRaw     = formData.get('date') as string | null;
+  const location    = formData.get('location') as string | null;
+  const formUrl     = formData.get('formUrl') as string | null;
+  const posterFile  = formData.get('poster') as File | null;
+  const isPublished = formData.get('isPublished');
+
+  const data: Record<string, unknown> = {};
+
+  if (title) data.title = title;
+  if (description) data.description = description;
+  if (dateRaw) {
+    const date = new Date(dateRaw);
+    if (!isNaN(date.getTime())) {
+      data.date = date;
+    }
+  }
+  if (location !== null) data.location = location || null;
+  if (formUrl !== null) data.formUrl = formUrl || null;
+  if (isPublished !== null) {
+    data.isPublished = isPublished === 'true' || isPublished === 'on';
+  }
+
+  if (posterFile && posterFile.size > 0) {
+    data.imageUrl = await uploadEventPoster(posterFile);
+  }
+
+  await prisma.event.update({
+    where: { id },
+    data,
+  });
+
+  revalidatePath('/');
+  revalidatePath('/etkinlikler');
+  revalidatePath('/admin/events');
+}
+
+// ─────────────────────────────────────────────
+// 4. Etkinlik Silme
 // ─────────────────────────────────────────────
 export async function deleteEvent(id: string): Promise<void> {
   if (!id) {
@@ -90,8 +137,9 @@ export async function deleteEvent(id: string): Promise<void> {
 
   await prisma.event.delete({ where: { id } });
 
-  revalidatePath('/admin/events');
   revalidatePath('/');
+  revalidatePath('/etkinlikler');
+  revalidatePath('/admin/events');
 }
 
 // ─────────────────────────────────────────────

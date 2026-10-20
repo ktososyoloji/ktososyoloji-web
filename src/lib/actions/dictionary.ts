@@ -25,6 +25,7 @@ export async function createDictionaryTerm(formData: FormData): Promise<void> {
 
   revalidatePath('/admin/dictionary');
   revalidatePath('/sozluk');
+  revalidatePath('/');
 }
 
 // ─────────────────────────────────────────────
@@ -39,6 +40,7 @@ export async function deleteDictionaryTerm(id: string): Promise<void> {
 
   revalidatePath('/admin/dictionary');
   revalidatePath('/sozluk');
+  revalidatePath('/');
 }
 
 // ─────────────────────────────────────────────

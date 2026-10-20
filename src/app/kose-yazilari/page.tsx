@@ -10,6 +10,8 @@ import {
 } from 'lucide-react';
 import { getColumnArticles } from '@/lib/actions/columns';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = {
   title: 'Köşe Yazıları & Fikir Kürsüsü | KTO Sosyoloji Topluluğu',
   description:

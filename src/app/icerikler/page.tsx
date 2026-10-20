@@ -15,6 +15,8 @@ import {
   ExternalLink,
 } from 'lucide-react';
 
+export const dynamic = 'force-dynamic';
+
 const CONTENT_TYPE_META: Record<
   string,
   { label: string; badgeClass: string; icon: typeof BookOpen }

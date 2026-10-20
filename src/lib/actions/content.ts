@@ -123,6 +123,7 @@ export async function createContent(formData: FormData): Promise<void> {
 
   revalidatePath('/admin/content');
   revalidatePath('/icerikler');
+  revalidatePath('/');
 }
 
 // ─────────────────────────────────────────────
@@ -137,6 +138,7 @@ export async function deleteContent(id: string): Promise<void> {
 
   revalidatePath('/admin/content');
   revalidatePath('/icerikler');
+  revalidatePath('/');
 }
 
 // ─────────────────────────────────────────────
