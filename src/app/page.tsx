@@ -535,7 +535,7 @@ export default async function HomePage() {
                 className="py-2.5 px-4 bg-white hover:bg-s-pink hover:text-white text-s-navy font-bold text-xs sm:text-sm border-2 border-s-navy shadow-[2px_2px_0px_#11375C] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none transition-all flex items-center gap-2"
               >
                 <InstagramIcon className="w-4 h-4" />
-                <span>Instagram (@ktosoyoloji)</span>
+                <span>Instagram (@ktokarataysosyolojitoplulugu)</span>
               </a>
 
               <a

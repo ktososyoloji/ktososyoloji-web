@@ -155,7 +155,7 @@ export default function ContactPage() {
                 >
                   <span className="flex items-center gap-2.5">
                     <InstagramIcon className="w-4 h-4" />
-                    <span>Instagram (@ktosoyoloji)</span>
+                    <span>Instagram (@ktokarataysosyolojitoplulugu)</span>
                   </span>
                   <ExternalLink className="w-3.5 h-3.5" />
                 </a>
