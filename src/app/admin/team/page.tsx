@@ -65,14 +65,13 @@ export default function AdminTeamPage() {
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<string | null>(null);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [formSuccess, setFormSuccess] = useState(false);
   const [selectedTitle, setSelectedTitle] = useState<ValidTitle>('Topluluk Yönetim Kurulu Üyesi');
   const [isPending, startTransition] = useTransition();
   const formRef = useRef<HTMLFormElement>(null);
 
   const fetchMembersAndUser = async () => {
-    setLoading(true);
     try {
       const [userData, membersData] = await Promise.all([
         getCurrentAdminUser(),
@@ -93,24 +92,34 @@ export default function AdminTeamPage() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormError(null);
+    setErrorMessage(null);
     setFormSuccess(false);
 
     const formData = new FormData(e.currentTarget);
 
     startTransition(async () => {
       try {
-        await createTeamMember(formData);
+        const res = await createTeamMember(formData);
+        if (!res.success) {
+          setErrorMessage(
+            typeof res.error === 'string'
+              ? res.error
+              : 'İşlem gerçekleştirilemedi.'
+          );
+          return;
+        }
+
+        setErrorMessage(null);
         formRef.current?.reset();
         setSelectedTitle('Topluluk Yönetim Kurulu Üyesi');
         setFormSuccess(true);
         await fetchMembersAndUser();
         setTimeout(() => setFormSuccess(false), 5000);
       } catch (err) {
-        setFormError(
+        setErrorMessage(
           err instanceof Error
             ? err.message
-            : 'Ekip üyesi eklenirken bir hata oluştu.'
+            : 'Kullanıcı eklenirken bir sunucu hatası oluştu. Lütfen tekrar deneyin.'
         );
       }
     });
@@ -207,13 +216,13 @@ export default function AdminTeamPage() {
           </h2>
 
           {/* Hata Bildirimi */}
-          {formError && (
+          {errorMessage && (
             <div
               role="alert"
-              className="mb-4 p-3 bg-red-50 border-2 border-red-500 text-red-800 text-sm font-medium flex items-start gap-2"
+              className="mb-4 p-3.5 bg-red-50 border-2 border-red-500 text-red-900 text-sm font-semibold flex items-start gap-2.5 shadow-[2px_2px_0px_#11375C]"
             >
               <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
-              <span>{formError}</span>
+              <span className="leading-snug">{errorMessage}</span>
             </div>
           )}
 

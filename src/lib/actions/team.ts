@@ -21,63 +21,109 @@ import {
 // ─────────────────────────────────────────────
 // 1. Ekip Üyesi / Yönetici Ekleme (Sadece ADMIN)
 // ─────────────────────────────────────────────
-export async function createTeamMember(formData: FormData): Promise<void> {
-  // Yetki Kontrolü: Yalnızca ADMIN ekip üyesi ekleyebilir
-  const session = await getSession();
-  if (session && session.role !== Role.ADMIN) {
-    throw new Error('Yetkisiz işlem! Yalnızca Topluluk Yöneticileri (ADMIN) yeni üye ekleyebilir.');
+export async function createTeamMember(
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    // Yetki Kontrolü: Yalnızca ADMIN ekip üyesi ekleyebilir
+    const session = await getSession();
+    if (session && session.role !== Role.ADMIN) {
+      return {
+        success: false,
+        error: 'Yetkisiz işlem! Yalnızca Topluluk Yöneticileri (ADMIN) yeni üye ekleyebilir.',
+      };
+    }
+
+    const name = (formData.get('name') as string)?.trim();
+    const title = (formData.get('title') as string)?.trim() as ValidTitle;
+    let email = (formData.get('email') as string)?.trim();
+
+    if (!name || !title) {
+      return {
+        success: false,
+        error: 'Lütfen ad soyad ve görev alanlarını eksiksiz doldurun.',
+      };
+    }
+
+    if (!VALID_TITLES.includes(title)) {
+      return {
+        success: false,
+        error: `Geçersiz görev/unvan! Lütfen belirtilen 4 ünvandan birini seçiniz: ${VALID_TITLES.join(', ')}`,
+      };
+    }
+
+    // Göreve göre sistem rolünü otomatik belirle
+    const role: Role = getRoleForTitle(title);
+
+    // Eğer e-posta belirtilmemişse otomatik kurumsal format oluştur
+    if (!email) {
+      email = `${slugify(name)}@karatay.edu.tr`;
+    } else {
+      email = email.toLowerCase();
+    }
+
+    // E-posta format kontrolü
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return {
+        success: false,
+        error: 'Lütfen geçerli bir kurumsal veya kişisel e-posta adresi girin.',
+      };
+    }
+
+    // Mevcut e-posta çakışmasını kontrol et
+    const existingUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (existingUser) {
+      return {
+        success: false,
+        error: 'Bu e-posta adresiyle kayıtlı bir ekip üyesi zaten mevcut.',
+      };
+    }
+
+    // Varsayılan geçici şifre: "123456" (güvenli hash)
+    const defaultPasswordHash = hashPassword('123456');
+
+    await prisma.user.create({
+      data: {
+        name,
+        email,
+        title,
+        role,
+        password: defaultPasswordHash,
+        mustChangePassword: true, // İlk girişte şifre değiştirme zorunlu
+      },
+    });
+
+    revalidatePath('/admin/team');
+    revalidatePath('/admin');
+    revalidatePath('/hakkimizda');
+
+    return { success: true };
+  } catch (err: unknown) {
+    const errCode = (err as { code?: string })?.code;
+    const errMsg = (err instanceof Error ? err.message : String(err)).toLowerCase();
+
+    if (
+      errCode === 'P2002' ||
+      errMsg.includes('unique') ||
+      errMsg.includes('already registered') ||
+      errMsg.includes('already exists') ||
+      errMsg.includes('email')
+    ) {
+      return {
+        success: false,
+        error: 'Bu e-posta adresiyle kayıtlı bir ekip üyesi zaten mevcut.',
+      };
+    }
+
+    return {
+      success: false,
+      error: 'Kullanıcı eklenirken bir sunucu hatası oluştu. Lütfen tekrar deneyin.',
+    };
   }
-
-  const name = (formData.get('name') as string)?.trim();
-  const title = (formData.get('title') as string)?.trim() as ValidTitle;
-  let email = (formData.get('email') as string)?.trim();
-
-  if (!name) {
-    throw new Error('İsim ve soyisim alanı zorunludur.');
-  }
-
-  if (!title || !VALID_TITLES.includes(title)) {
-    throw new Error(
-      `Geçersiz görev/unvan! Lütfen belirtilen 4 ünvandan birini seçiniz: ${VALID_TITLES.join(', ')}`
-    );
-  }
-
-  // Göreve göre sistem rolünü otomatik belirle
-  const role: Role = getRoleForTitle(title);
-
-  // Eğer e-posta belirtilmemişse otomatik kurumsal format oluştur
-  if (!email) {
-    email = `${slugify(name)}@karatay.edu.tr`;
-  } else {
-    email = email.toLowerCase();
-  }
-
-  // Mevcut e-posta çakışmasını kontrol et
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
-  });
-
-  if (existingUser) {
-    throw new Error(`"${email}" e-posta adresiyle kayıtlı bir kullanıcı zaten mevcut.`);
-  }
-
-  // Varsayılan geçici şifre: "123456" (güvenli hash)
-  const defaultPasswordHash = hashPassword('123456');
-
-  await prisma.user.create({
-    data: {
-      name,
-      email,
-      title,
-      role,
-      password: defaultPasswordHash,
-      mustChangePassword: true, // İlk girişte şifre değiştirme zorunlu
-    },
-  });
-
-  revalidatePath('/admin/team');
-  revalidatePath('/admin');
-  revalidatePath('/hakkimizda');
 }
 
 // ─────────────────────────────────────────────
