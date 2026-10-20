@@ -129,16 +129,13 @@ export default function AdminLoginPage() {
               autoComplete="current-password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="•••••••• (Varsayılan: 123456)"
+              placeholder="••••••••"
               disabled={isLoading}
               className="w-full px-3 py-2.5 bg-white border-2 border-s-navy text-s-navy placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-s-blue transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-sm"
             />
           </div>
 
-          <div className="p-2.5 bg-slate-50 border border-s-navy/30 text-[11px] text-slate-500 flex items-center gap-1.5">
-            <KeyRound className="w-3.5 h-3.5 text-s-blue shrink-0" />
-            <span>İlk kez giriş yapıyorsanız şifreniz: <strong>123456</strong></span>
-          </div>
+
 
           {/* Gönder Butonu */}
           <button
