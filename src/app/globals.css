@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+@theme {
+  --color-s-pink: #FB7996;
+  --color-s-yellow: #FFCE5D;
+  --color-s-blue: #3D9ED9;
+  --color-s-navy: #11375C;
+
+  --shadow-brutal: 4px 4px 0px 0px #11375C;
+}
+
+body {
+  background-color: #ffffff;
+  color: #11375C;
+}
